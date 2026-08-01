@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================
+   Base typography & body
+   ========================================= */
+@layer base {
+  :root {
+    --gradient-warm: linear-gradient(
+      135deg,
+      rgba(224, 122, 95, 0.08) 0%,
+      rgba(242, 204, 143, 0.12) 50%,
+      rgba(11, 59, 54, 0.04) 100%
+    );
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-cream text-ink font-sans;
+    font-feature-settings: "ss01" on, "cv11" on;
+  }
+
+  /* Decorative pseudo-grain texture on body for warmth */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity: 0.05;
+    z-index: 100;
+    mix-blend-mode: multiply;
+  }
+
+  /* Selection color */
+  ::selection {
+    @apply bg-terra-500/30 text-teal-700;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+    font-feature-settings: "ss01" on, "ss02" on;
+  }
+}
+
+/* =========================================
+   Reusable components
+   ========================================= */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-teal-700 px-7 py-3.5 text-sm font-semibold text-cream tracking-wide transition-all duration-300 hover:bg-teal-800 hover:shadow-lift active:scale-[0.98];
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-terra-500 px-7 py-3.5 text-sm font-semibold text-cream tracking-wide transition-all duration-300 hover:bg-terra-600 hover:shadow-lift active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-teal-700/20 px-6 py-3 text-sm font-semibold text-teal-700 transition-all duration-300 hover:border-teal-700/40 hover:bg-teal-700/5;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-teal-700/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-teal-700;
+  }
+
+  .badge-discount {
+    @apply inline-flex items-center gap-1 rounded-full bg-terra-500 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-cream;
+  }
+
+  /* Eyebrow text — used above section headlines */
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.22em] text-terra-600;
+  }
+
+  /* Decorative serif numbers (for stats etc.) */
+  .num-display {
+    @apply font-display text-display-lg text-teal-700;
+    font-variant-numeric: oldstyle-nums;
+  }
+}
+
+/* =========================================
+   Animation utilities
+   ========================================= */
+@layer utilities {
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+
+  /* Smooth gradient mask for image fades */
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  }
+}
+
+/* =========================================
+   Scrollbar refinement
+   ========================================= */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: theme("colors.cream.DEFAULT"); }
+::-webkit-scrollbar-thumb {
+  background: theme("colors.teal.700");
+  border-radius: 999px;
+  border: 2px solid theme("colors.cream.DEFAULT");
+}
+::-webkit-scrollbar-thumb:hover { background: theme("colors.teal.800"); }
